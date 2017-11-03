@@ -1,8 +1,8 @@
 
 #
-#    Debian 8 (jessie) minimal service (dockerfile)
-#    Copyright (C) 2016 SOL-ICT
-#    This file is part of the Docker General Purpose System Distro.
+#    Debian 8 (jessie) Minimal System (dockerfile)
+#    Copyright (C) 2016-2017 Stafli
+#    This file is part of the Stafli Application Stack.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -1,8 +1,8 @@
 ---
 #
-#    Debian 7 (wheezy) docker-compose.yml
-#    Copyright (C) 2016 SOL-ICT
-#    This file is part of the Docker General Purpose System Distro.
+#    Debian 7 (wheezy) Minimal System (docker-compose.yml)
+#    Copyright (C) 2016-2017 Stafli
+#    This file is part of the Stafli Application Stack.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ services:
       - "architecture=$BUILD_ARCH"
       - "org.label-schema.version=$BUILD_VERSION"
       - "org.label-schema.build-date=$BUILD_DATE"
-    image: "solict/general-purpose-system-distro:debian7_minimal"
+    image: "stafli/stafli.minimal.system:debian7_minimal"
     build:
       context: "./dockerfiles"
       dockerfile: "minimal.dockerfile"
