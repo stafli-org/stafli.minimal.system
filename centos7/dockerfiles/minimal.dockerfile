@@ -131,7 +131,7 @@ RUN printf "Installing repositories and packages...\n" && \
     printf "Remove the superfluous packages...\n" && \
     yum remove -y \
       vim-minimal && \
-    package-cleanup -q --leaves --exclude-bin | xargs -l1 yum remove -y && \
+    package-cleanup -q --leaves --exclude-bin | xargs -l1 yum remove -y; \
     printf "Cleanup the Package Manager...\n" && \
     yum clean all && rm -Rf /var/lib/yum/*; \
     \
