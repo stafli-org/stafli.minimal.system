@@ -26,7 +26,7 @@ These are the services described by the dockerfile and docker-compose files:
 
 ## Images
 These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.system/tags/) upon building:
-- Minimal service:
+- Minimal:
   - stafli/stafli.minimal.system:debian8_minimal
   - stafli/stafli.minimal.system:debian7_minimal
   - stafli/stafli.minimal.system:centos7_minimal
@@ -34,7 +34,7 @@ These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.
 
 ## Containers
 These containers can be created from the images:
-- Minimal service:
+- Minimal:
   - debian8_minimal_xxx
   - debian7_minimal_xxx
   - centos7_minimal_xxx

@@ -2,6 +2,7 @@
 #
 #    CentOS 7 (centos7) Minimal System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
+#    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,6 @@
 #
 
 FROM centos:centos7
-MAINTAINER Luís Pedro Algarvio <lp.algarvio@gmail.com>
 
 #
 # Arguments
