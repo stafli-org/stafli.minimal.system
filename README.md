@@ -22,7 +22,7 @@ The services use the official images as a starting point:
 
 ## Services
 These are the services described by the dockerfile and docker-compose files:
-- Minimal, built on Upstream with common software
+- Minimal, built on Upstream distros with pre-installed common software
 
 ## Images
 These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.system/tags/) upon building:
