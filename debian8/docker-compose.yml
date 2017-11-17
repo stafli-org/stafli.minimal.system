@@ -23,7 +23,7 @@
 version: '2'
 
 #
-# Main services
+# Services
 #
 services:
 
@@ -67,18 +67,4 @@ services:
       driver: "json-file"
     working_dir: "/tmp"
     command: "/bin/bash"
-
-#
-# Networks
-#
-networks:
-  default:
-    driver: "bridge"
-
-#
-# Volumes
-#
-volumes:
-  minimal_data:
-    driver: "local"
 
