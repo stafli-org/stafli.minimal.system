@@ -94,11 +94,14 @@ ENV TERM="${os_terminal}" \
 #  - wget: for wget, a network utility to download via FTP and HTTP protocols
 #  - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols
 #  - rsync: for rsync, a fast and versatile remote (and local) file-copying tool
+#  - openssh-client: for ssh, a free client implementation of the Secure Shell protocol
 # Install misc packages
 #  - bash-completion: to add programmable completion for the bash shell
 #  - dialog: for dialog, to provide prompts for the bash shell
 #  - screen: for screen, the terminal multiplexer with VT100/ANSI terminal emulation
+#  - byobu: for byobu, a text window manager, shell multiplexer and integrated DevOps environment
 #  - nano: for nano, a tiny editor based on pico
+#  - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi
 RUN printf "Installing repositories and packages...\n" && \
     \
     printf "Disable installation of optional apt packages...\n"; \
@@ -124,8 +127,8 @@ APT::Install-Suggests "\""false"\"";\n\
       file grep tree findutils diffutils \
       tar gzip bzip2 zip unzip xz-utils \
       iproute iputils-ping iputils-tracepath dnsutils netcat-openbsd \
-      wget curl rsync \
-      bash-completion dialog screen nano && \
+      wget curl rsync openssh-client \
+      bash-completion dialog screen byobu nano vim-tiny && \
     printf "Remove the superfluous packages...\n" && \
     apt-get autoremove --purge && \
     printf "Cleanup the Package Manager...\n" && \

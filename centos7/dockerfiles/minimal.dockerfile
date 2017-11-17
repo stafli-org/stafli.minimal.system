@@ -92,15 +92,16 @@ ENV TERM="${os_terminal}"
 #  - wget: for wget, a network utility to download via FTP and HTTP protocols
 #  - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols
 #  - rsync: for rsync, a fast and versatile remote (and local) file-copying tool
+#  - openssh-clients: for ssh, a free client implementation of the Secure Shell protocol
 # Install misc packages
 #  - bash-completion: to add programmable completion for the bash shell
 #  - dialog: for dialog, to provide prompts for the bash shell
 #  - screen: for screen, the terminal multiplexer with VT100/ANSI terminal emulation
+#  - byobu: for byobu, a text window manager, shell multiplexer and integrated DevOps environment
 #  - nano: for nano, a tiny editor based on pico
+#  - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi
 # Reinstall and clean locale archives
 #  - glibc-common: to provide common files for locale support
-# Removed superfluous packages
-#  - vim-minimal: for vim editor. nano editor is installed
 RUN printf "Installing repositories and packages...\n" && \
     \
     printf "Install the Package Manager related packages...\n" && \
@@ -121,16 +122,14 @@ RUN printf "Installing repositories and packages...\n" && \
       file grep tree findutils diffutils \
       tar gzip bzip2 zip unzip xz \
       iproute iputils traceroute bind-utils nc \
-      wget curl rsync \
-      bash-completion dialog screen nano && \
+      wget curl rsync openssh-clients \
+      bash-completion dialog screen byobu nano vim-minimal && \
     printf "Reinstall and clean locale archives...\n" && \
     yum makecache && yum reinstall -y glibc-common && \
     localedef --list-archive | grep -v -i ^en | xargs localedef --delete-from-archive && \
     mv -f /usr/lib/locale/locale-archive /usr/lib/locale/locale-archive.tmpl && \
     build-locale-archive && rm -Rf /usr/lib/locale/tmp && \
     printf "Remove the superfluous packages...\n" && \
-    yum remove -y \
-      vim-minimal && \
     package-cleanup -q --leaves --exclude-bin | xargs -l1 yum remove -y; \
     printf "Cleanup the Package Manager...\n" && \
     yum clean all && rm -Rf /var/lib/yum/*; \
