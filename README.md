@@ -1,8 +1,8 @@
 # Stafli Minimal System
-Stafli Minimal System builds are based on [Debian](https://www.debian.org/) and [CentOS](https://www.centos.org/), and developed as scripts for [Docker](https://www.docker.com/).  
-This project is part of the [Stafli Application Stack](https://github.com/stafli-org/).
+Stafli Minimal System builds are based on [Debian](https://www.debian.org) and [CentOS](https://www.centos.org), and developed as scripts for [Docker](https://www.docker.com).  
+This project is part of the [Stafli Application Stack](https://github.com/stafli-org).
 
-Requires [Docker Compose](https://docs.docker.com/compose/) 1.6.x or higher due to the [version 2](https://docs.docker.com/compose/compose-file/#versioning) format of the docker-compose.yml files.
+Requires [Docker Compose](https://docs.docker.com/compose) 1.6.x or higher due to the [version 2](https://docs.docker.com/compose/compose-file/#versioning) format of the docker-compose.yml files.
 
 There are docker-compose.yml files per distribution, as well as docker-compose.override.yml and .env files, which may be used to override configuration.
 An optional [Makefile](../../tree/master/Makefile) is provided to help with loading these with ease and perform commands in batch.
@@ -12,11 +12,11 @@ Scripts are also provided for each distribution to help test and deploy the inst
 The images are automatically built at a [repository](https://hub.docker.com/r/stafli/stafli.minimal.system) in the Docker Hub registry.
 
 ## Distributions
-The services use the official images as a starting point:
-- __Debian__, from the [official repository](https://hub.docker.com/_/debian/)
+The services use the official images as a starting point for the following distributions:
+- __Debian__, from the [official repository](https://hub.docker.com/_/debian)
   - [Debian 8 (jessie)](../../tree/master/debian8)
   - [Debian 7 (wheezy)](../../tree/master/debian7)
-- __CentOS__, from the [official repository](https://hub.docker.com/_/centos/)
+- __CentOS__, from the [official repository](https://hub.docker.com/_/centos)
   - [CentOS 7 (centos7)](../../tree/master/centos7)
   - [CentOS 6 (centos6)](../../tree/master/centos6)
 
@@ -25,7 +25,7 @@ These are the services described by the dockerfile and docker-compose files:
 - Minimal, built on Upstream distros with pre-installed common software
 
 ## Images
-These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.system/tags/) upon building:
+These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.system/tags) upon building:
 - Minimal:
   - stafli/stafli.minimal.system:debian8_minimal
   - stafli/stafli.minimal.system:debian7_minimal
