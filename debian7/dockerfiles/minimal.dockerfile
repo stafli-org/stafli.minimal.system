@@ -1,6 +1,6 @@
 
 #
-#    Debian 7 (wheezy) Minimal System (dockerfile)
+#    Debian 7 (wheezy) Minimal10 System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.

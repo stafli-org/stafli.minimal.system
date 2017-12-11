@@ -9,7 +9,7 @@ An optional [Makefile](../../tree/master/Makefile) is provided to help with load
 
 Scripts are also provided for each distribution to help test and deploy the installation procedures in non-Docker environments.
 
-The images are automatically built at a [repository](https://hub.docker.com/r/stafli/stafli.minimal.system) in the Docker Hub registry.
+The images are automatically built at a [repository](https://hub.docker.com/r/stafli/stafli.system.minimal) in the Docker Hub registry.
 
 ## Distributions
 The services use the official images as a starting point for the following distributions:
@@ -22,23 +22,23 @@ The services use the official images as a starting point for the following distr
 
 ## Services
 These are the services described by the dockerfile and docker-compose files:
-- Minimal, built on Upstream distros with pre-installed common software
+- Minimal 1.0.x, built on Upstream distros with pre-installed common software
 
 ## Images
-These are the [resulting images](https://hub.docker.com/r/stafli/stafli.minimal.system/tags) upon building:
-- Minimal:
-  - stafli/stafli.minimal.system:debian8_minimal
-  - stafli/stafli.minimal.system:debian7_minimal
-  - stafli/stafli.minimal.system:centos7_minimal
-  - stafli/stafli.minimal.system:centos6_minimal
+These are the [resulting images](https://hub.docker.com/r/stafli/stafli.system.minimal/tags) upon building:
+- Minimal 1.0.x:
+  - stafli/stafli.system.minimal:minimal10_debian8
+  - stafli/stafli.system.minimal:minimal10_debian7
+  - stafli/stafli.system.minimal:minimal10_centos7
+  - stafli/stafli.system.minimal:minimal10_centos6
 
 ## Containers
 These containers can be created from the images:
-- Minimal:
-  - debian8_minimal_xxx
-  - debian7_minimal_xxx
-  - centos7_minimal_xxx
-  - centos6_minimal_xxx
+- Minimal 1.0.x:
+  - stafli_system_minimal10_debian8_xxx
+  - stafli_system_minimal10_debian7_xxx
+  - stafli_system_minimal10_centos7_xxx
+  - stafli_system_minimal10_centos6_xxx
 
 ## Usage
 
@@ -55,19 +55,19 @@ Where <image_url> is the full image url (lookup the image list above).
 
 Example:
 ```
-docker pull stafli/stafli.minimal.system:debian8_minimal
+docker pull stafli/stafli.system.minimal:minimal10_debian8
 
-docker run -ti stafli/stafli.minimal.system:debian8_minimal /bin/bash
+docker run -ti stafli/stafli.system.minimal:minimal10_debian8 /bin/bash
 ```
 
 ### From GitHub repository (automated)
 
 Note: this method allows using docker-compose and the Makefile.
 
-1. Download the repository [zip file](https://github.com/stafli-org/stafli.minimal.system/archive/master.zip) and unpack it or clone the repository using:  
-`git clone https://github.com/stafli-org/stafli.minimal.system.git`
+1. Download the repository [zip file](https://github.com/stafli-org/stafli.system.minimal/archive/master.zip) and unpack it or clone the repository using:  
+`git clone https://github.com/stafli-org/stafli.system.minimal.git`
 2. Navigate to the project directory through the terminal:  
-`cd stafli.minimal.system`
+`cd stafli.system.minimal`
 3. Type in the desired operation through the terminal:  
 `make <operation> DISTRO=<distro>`
 
@@ -75,8 +75,8 @@ Where <distro> is the distribution/directory and <operation> is the desired dock
 
 Example:
 ```
-git clone https://github.com/stafli-org/stafli.minimal.system.git;
-cd stafli.minimal.system;
+git clone https://github.com/stafli-org/stafli.system.minimal.git;
+cd stafli.system.minimal;
 
 # Example #1: quick start, with build
 make up DISTRO=debian8;
