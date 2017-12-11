@@ -27,7 +27,7 @@ version: '2'
 #
 services:
 
-  minimal:
+  debian8_minimal_system:
     build:
       args:
         os_timezone: "US/Eastern"

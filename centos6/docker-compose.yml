@@ -27,7 +27,7 @@ version: '2'
 #
 services:
 
-  minimal:
+  centos6_minimal_system:
     labels:
       - "org.label-schema.schema-version=1.0"
       - "org.label-schema.name=$PROJECT_NAME"
@@ -54,7 +54,7 @@ services:
       - "org.label-schema.os-architecture=$BUILD_ARCH"
       - "org.label-schema.version=$BUILD_VERSION"
       - "org.label-schema.build-date=$BUILD_DATE"
-    image: "stafli/stafli.minimal.system:centos6_minimal"
+    image: "${IMAGE_URL_PREFIX}:centos6_minimal"
     build:
       context: "./dockerfiles"
       dockerfile: "minimal.dockerfile"

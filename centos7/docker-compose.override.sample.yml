@@ -27,7 +27,7 @@ version: '2'
 #
 services:
 
-  minimal:
+  centos7_minimal_system:
     build:
       args:
         os_timezone: "US/Eastern"
