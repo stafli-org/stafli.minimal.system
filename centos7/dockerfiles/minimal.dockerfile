@@ -19,11 +19,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#
+# Build
+#
+
+# Base image to use
 FROM centos:centos7
 
-#
-# Labels
-#
+# Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
       maintainer="lp@algarvio.org" \
       org.label-schema.schema-version="1.0.0-rc.1" \
@@ -62,6 +65,14 @@ ARG os_charset="UTF-8"
 
 # Suppress warnings about the terminal
 ENV TERM="${os_terminal}"
+
+# Working directory to use when executing build and run instructions
+# Defaults to /.
+#WORKDIR /
+
+# User and group to use when executing build and run instructions
+# Defaults to root.
+#USER root:root
 
 #
 # Packages
@@ -196,4 +207,12 @@ RUN printf "Disabling SELinux (permissive)...\n"; \
     fi; \
     \
     printf "Finished disabling SELinux (permissive)...\n";
+
+#
+# Run
+#
+
+# Command to execute
+# Defaults to /bin/bash.
+#CMD ["/bin/bash"]
 

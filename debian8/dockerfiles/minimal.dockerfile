@@ -19,11 +19,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#
+# Build
+#
+
+# Base image to use
 FROM debian:jessie
 
-#
-# Labels
-#
+# Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
       maintainer="lp@algarvio.org" \
       org.label-schema.schema-version="1.0.0-rc.1" \
@@ -63,6 +66,14 @@ ARG os_charset="UTF-8"
 # Suppress warnings about the terminal and frontend and avoid prompts
 ENV TERM="${os_terminal}" \
     DEBIAN_FRONTEND="noninteractive"
+
+# Working directory to use when executing build and run instructions
+# Defaults to /.
+#WORKDIR /
+
+# User and group to use when executing build and run instructions
+# Defaults to root.
+#USER root:root
 
 #
 # Packages
@@ -180,4 +191,12 @@ RUN printf "Configuring accounts and internationalization...\n"; \
     printf "Finished configuring accounts and internationalization...\n";
 ENV TZ="${os_timezone}" \
     LANGUAGE="${os_locale}.${os_charset}" LANG="${os_locale}.${os_charset}" LC_ALL="${os_locale}.${os_charset}"
+
+#
+# Run
+#
+
+# Command to execute
+# Defaults to /bin/bash.
+#CMD ["/bin/bash"]
 
