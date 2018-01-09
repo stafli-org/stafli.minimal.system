@@ -22,7 +22,7 @@ The services use the official images as a starting point for the following distr
 
 ## Services
 These are the services described by the dockerfile and docker-compose files:
-- Minimal 1.0.x, built on Upstream distros with pre-installed common software
+- Minimal 1.0.x, built on Upstream distros with pre-installed useful packages, configured locales and timezones
 
 ## Images
 These are the [resulting images](https://hub.docker.com/r/stafli/stafli.system.minimal/tags) upon building:
