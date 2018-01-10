@@ -22,10 +22,15 @@
 # Workaround for docker commands
 alias FROM="#";
 alias MAINTAINER="#";
-alias ENV='export';
+alias LABEL="#";
 alias ARG='export';
+alias ENV='export';
 alias RUN='';
+alias CMD='#';
 shopt -s expand_aliases;
+
+# Load project settings
+source $(dirname "${BASH_SOURCE[0]}")/../.env;
 
 # Suppress warnings about the terminal
 printf "\
@@ -39,10 +44,12 @@ source "$(dirname $(readlink -f $0))/../dockerfiles/minimal.dockerfile";
 
 # Configure timezone and locales
 printf "\
-TZ=\"Etc/UTC\"\n\
-LANGUAGE=\"en_US.UTF-8\"\n\
-LANG=\"en_US.UTF-8\"\n\
-LC_ALL=\"en_US.UTF-8\"\n\
+TERM=\"${os_terminal}\"\n\
+DEBIAN_FRONTEND=\"noninteractive\"\n\
+TZ=\"${os_timezone}\"\n\
+LANGUAGE=\"${os_locale}.${os_charset}\"\n\
+LANG=\"${os_locale}.${os_charset}\"\n\
+LC_ALL=\"${os_locale}.${os_charset}\"\n\
 " >> /etc/environment;
 source /etc/environment;
 
