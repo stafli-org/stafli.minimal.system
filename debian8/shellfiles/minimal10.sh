@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#    CentOS 6 (centos6) Minimal10 System (shellscript)
+#    Debian 8 (jessie) Minimal10 System (shellscript)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
@@ -35,15 +35,17 @@ source $(dirname "${BASH_SOURCE[0]}")/../.env;
 # Suppress warnings about the terminal
 printf "\
 TERM=\"linux\"\n\
+DEBIAN_FRONTEND=\"noninteractive\"\n\
 " >> /etc/environment;
 source /etc/environment;
 
 # Load dockerfile
-source "$(dirname $(readlink -f $0))/../dockerfiles/minimal.dockerfile";
+source "$(dirname $(readlink -f $0))/../dockerfiles/${IMAGE_TAG_PREFIX}${DISTRO_DEBIAN8_VERSION}.dockerfile";
 
 # Configure timezone and locales
 printf "\
 TERM=\"${os_terminal}\"\n\
+DEBIAN_FRONTEND=\"noninteractive\"\n\
 TZ=\"${os_timezone}\"\n\
 LANGUAGE=\"${os_locale}.${os_charset}\"\n\
 LANG=\"${os_locale}.${os_charset}\"\n\
