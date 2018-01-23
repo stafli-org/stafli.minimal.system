@@ -79,41 +79,44 @@ ENV TERM="${os_terminal}" \
 # Packages
 #
 
-# Configure package manager
+# Configure the package manager
 #  - Disable installation of optional apt packages
 #  - Enable contrib and non-free components in debian repositories
-# Install package manager packages
+# Refresh the package manager
+# Install the package manager packages
 #  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (1301 kB, optional)
 #  - apt-transport-https: to allow HTTPS connections to sources in apt (163 kB + 10 mB, optional) (shares dependencies with curl)
-# Install base packages
-#  - bash: for bash, the GNU Bash shell (3941 kB, essential)
-#  - tzdata: to provide time zone and daylight-saving time data (1779 kB, essential)
-#  - locales: to provide common files for locale support (15121 kB, optional)
-# Install administration packages
-#  - debianutils: for which and others, basic administration packages (223 kB, essential)
-#  - procps: for kill, top and others, basic administration packages (612 kB, optional)
-# Install programming packages
-#  - sed: for sed, the GNU stream editor (847 kB, essential)
-#  - perl-base: for perl, an interpreter for the Perl Programming Language (4812 kB, essential)
-#  - python-minimal: for python, an interpreter for the Python Programming Language (161 kB + 5461 kB, optional)
-# Install find and revision control packages
-#  - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1407 kB, essential)
-#  - findutils: for find, the file search utility (1406 kB, essential)
-# Install archive and compression packages
-#  - tar: for tar, the GNU tar archiving utility (2464 kB, essential)
-#  - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (202 kB, essential)
-# Install network diagnosis packages
-#  - inetutils-ping: for ping/6, the portable GNU implementation of ping (278 kB + 65 kB, optional)
-#  - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (68 kB, optional)
-# Install network transfer packages
-#  - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (367 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
-# Install crypto packages
-#  - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
-#  - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with curl)
-#  - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential)
-# Install misc packages
-#  - nano: for nano, a tiny editor based on pico (1664 kB + 364 kB, optional)
-#  - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (830 kB + 288 kB, optional)
+# Install the selected packages
+#   Install the base packages
+#    - bash: for bash, the GNU Bash shell (3941 kB, essential)
+#    - tzdata: to provide time zone and daylight-saving time data (1779 kB, essential)
+#    - locales: to provide common files for locale support (15121 kB, optional)
+#   Install the administration packages
+#    - debianutils: for which and others, basic administration packages (223 kB, essential)
+#    - procps: for kill, top and others, basic administration packages (612 kB, optional)
+#   Install the programming packages
+#    - sed: for sed, the GNU stream editor (847 kB, essential)
+#    - perl-base: for perl, an interpreter for the Perl Programming Language (4812 kB, essential)
+#    - python-minimal: for python, an interpreter for the Python Programming Language (161 kB + 5461 kB, optional)
+#   Install the find and replace packages
+#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1407 kB, essential)
+#    - findutils: for find, the file search utility (1406 kB, essential)
+#   Install the archive and compression packages
+#    - tar: for tar, the GNU tar archiving utility (2464 kB, essential)
+#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (202 kB, essential)
+#   Install the network diagnosis packages
+#    - inetutils-ping: for ping/6, the portable GNU implementation of ping (278 kB + 65 kB, optional)
+#    - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (68 kB, optional)
+#   Install the network transfer packages
+#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (367 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
+#   Install the crypto packages
+#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
+#    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with curl)
+#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential)
+#   Install the misc packages
+#    - nano: for nano, a tiny editor based on pico (1664 kB + 364 kB, optional)
+#    - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (830 kB + 288 kB, optional)
+# Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
     printf "Disable installation of optional apt packages...\n" && \
@@ -125,12 +128,15 @@ APT::Install-Suggests "\""false"\"";\n\
     printf "Enable contrib and non-free components in debian repositories...\n" && \
     sed -i "s>main>main contrib non-free>" /etc/apt/sources.list && \
     \
+    printf "Refresh the package manager...\n" && \
+    apt-get update && \
+    \
     printf "Install the package manager packages...\n" && \
-    apt-get update && apt-get install -qy \
+    apt-get install -qy \
       apt-utils apt-transport-https && \
     \
     printf "Install the selected packages...\n" && \
-    apt-get update && apt-get install -qy \
+    apt-get install -qy \
       bash tzdata locales \
       debianutils procps \
       sed perl-base python-minimal \
@@ -142,7 +148,7 @@ APT::Install-Suggests "\""false"\"";\n\
       nano vim-tiny && \
     \
     printf "Cleanup the package manager...\n" && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && rm -Rf /var/cache/apt/* && \
     \
     printf "Finished installing repositories and packages...\n";
 

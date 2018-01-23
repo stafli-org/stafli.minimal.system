@@ -78,56 +78,63 @@ ENV TERM="${os_terminal}"
 # Packages
 #
 
+# Refresh the package manager
 # Add foreign repositories and GPG keys
 #  - epel-release: for Extra Packages for Enterprise Linux (EPEL)
-# Install package manager packages
+# Install the package manager packages
 #  - yum-plugin-ovl: to provide workarounds for OverlayFS issues in yum (22 kB, optional)
 #  - yum-plugin-fastestmirror: to provide fastest mirror selection from a mirrorlist in yum (essential)
 #  - yum-plugin-priorities: to provide priorities for packages from different repos in yum (28 kB, optional)
 #  - yum-plugin-keys: to provide key signing capabilities to yum (40 kB, optional)
 #  - yum-utils: to provide additional utilities such as package-cleanup and yum-config-manager in yum (2200 kB, optional)
-# Install base packages
-#  - bash: for bash, the GNU Bash shell (essential)
-#  - tzdata: to provide time zone and daylight-saving time data (essential)
-#  - glibc-common: to provide common files for locale support (essential)
-# Install administration packages
-#  - which: for which, basic administration packages (38 kB, optional)
-#  - procps: for kill, top and others, basic administration packages (464 kB, optional)
-# Install programming packages
-#  - sed: for sed, the GNU stream editor (essential)
-#  - perl: for perl, an interpreter for the Perl Programming Language (36 mB, optional)
-#  - python: for python, an interpreter for the Python Programming Language (essential)
-# Install find and revision control packages
-#  - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (essential)
-#  - findutils: for find, the file search utility (1400 kB, optional)
-# Install archive and compression packages
-#  - tar: for tar, the GNU tar archiving utility (2500 kB, optional)
-#  - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (essential)
-# Install network diagnosis packages
-#  - fping: for fping/6, tools to test the reachability of network hosts that requires less dependencies as (40 mB) iputils ping (31 kB, optional)
-#  - nc: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (57 kB, optional)
-# Install network transfer packages
-#  - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (essential)
-# Install crypto packages
-#  - gnupg: for gnupg, the GNU privacy guard cryptographic utility (essential)
-# Install misc packages
-#  - nano: for nano, a tiny editor based on pico (1500 kB, optional)
-#  - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi (896 kB, optional)
-# Reinstall and clean locale archives
+# Install the selected packages
+#   Install the base packages
+#    - bash: for bash, the GNU Bash shell (essential)
+#    - tzdata: to provide time zone and daylight-saving time data (essential)
+#    - glibc-common: to provide common files for locale support (essential)
+#   Install the administration packages
+#    - which: for which, basic administration packages (38 kB, optional)
+#    - procps: for kill, top and others, basic administration packages (464 kB, optional)
+#   Install the programming packages
+#    - sed: for sed, the GNU stream editor (essential)
+#    - perl: for perl, an interpreter for the Perl Programming Language (36 mB, optional)
+#    - python: for python, an interpreter for the Python Programming Language (essential)
+#   Install the find and replace packages
+#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (essential)
+#    - findutils: for find, the file search utility (1400 kB, optional)
+#   Install the archive and compression packages
+#    - tar: for tar, the GNU tar archiving utility (2500 kB, optional)
+#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (essential)
+#   Install the network diagnosis packages
+#    - fping: for fping/6, tools to test the reachability of network hosts that requires less dependencies as (40 mB) iputils ping (31 kB, optional)
+#    - nc: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (57 kB, optional)
+#   Install the network transfer packages
+#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (essential)
+#   Install the crypto packages
+#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (essential)
+#   Install the misc packages
+#    - nano: for nano, a tiny editor based on pico (1500 kB, optional)
+#    - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi (896 kB, optional)
+# Reinstall and clean the locale archives
+# Add symlinks for new binaries
 #  - glibc-common: to provide common files for locale support
+# Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
+    printf "Refresh the package manager...\n" && \
+    rpm --rebuilddb && yum makecache && \
+    \
     printf "Install the foreign repositories...\n" && \
-    yum makecache && yum install -y \
+    yum install -y \
       epel-release && \
     \
     printf "Install the package manager packages...\n" && \
-    yum makecache && yum install -y \
+    yum install -y \
       yum-plugin-ovl yum-plugin-fastestmirror yum-plugin-priorities \
       yum-plugin-keys yum-utils && \
     \
     printf "Install the selected packages...\n" && \
-    yum makecache && yum install -y \
+    yum install -y \
       bash tzdata glibc-common \
       which procps \
       sed perl python \
@@ -137,16 +144,18 @@ RUN printf "Installing repositories and packages...\n" && \
       curl \
       gnupg \
       nano vim-minimal && \
+    \
+    printf "Add symlinks for new binaries...\n" && \
     ln -s /usr/sbin/fping /usr/bin/ping && \
     \
-    printf "Reinstall and clean locale archives...\n" && \
-    yum makecache && yum reinstall -y glibc-common && \
+    printf "Reinstall and clean the locale archives...\n" && \
+    yum reinstall -y glibc-common && \
     localedef --list-archive | grep -v -i ^${os_locale} | xargs localedef --delete-from-archive && \
     mv -f /usr/lib/locale/locale-archive /usr/lib/locale/locale-archive.tmpl && \
     build-locale-archive && rm -Rf /usr/lib/locale/tmp && \
     \
     printf "Cleanup the package manager...\n" && \
-    yum clean all && rm -Rf /var/lib/yum/* && \
+    yum clean all && rm -Rf /var/lib/yum/* && rm -Rf /var/cache/yum/* && \
     \
     printf "Finished installing repositories and packages...\n";
 
