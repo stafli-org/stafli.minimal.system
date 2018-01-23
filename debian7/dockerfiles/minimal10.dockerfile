@@ -101,6 +101,7 @@ ENV TERM="${os_terminal}" \
 #   Install the find and replace packages
 #    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1407 kB, essential)
 #    - findutils: for find, the file search utility (1406 kB, essential)
+#    - tree: for tree, displays directory tree, in color (102 kB, optional)
 #   Install the archive and compression packages
 #    - tar: for tar, the GNU tar archiving utility (2464 kB, essential)
 #    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (202 kB, essential)
@@ -113,6 +114,8 @@ ENV TERM="${os_terminal}" \
 #    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
 #    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with curl)
 #    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential)
+#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (1110 kB, optional)
+#    - ca-certificates: adds trusted PEM files of CA certificates to the system (435 kB, optional)
 #   Install the misc packages
 #    - nano: for nano, a tiny editor based on pico (1664 kB + 364 kB, optional)
 #    - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (830 kB + 288 kB, optional)
@@ -140,11 +143,11 @@ APT::Install-Suggests "\""false"\"";\n\
       bash tzdata locales \
       debianutils procps \
       sed perl-base python-minimal \
-      grep findutils \
+      grep findutils tree \
       tar gzip \
       inetutils-ping netcat-openbsd \
       curl \
-      gnupg gnupg-curl gpgv \
+      gnupg gnupg-curl gpgv openssl ca-certificates \
       nano vim-tiny && \
     \
     printf "Cleanup the package manager...\n" && \

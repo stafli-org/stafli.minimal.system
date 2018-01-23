@@ -102,6 +102,7 @@ ENV TERM="${os_terminal}"
 #   Install the find and replace packages
 #    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (essential)
 #    - findutils: for find, the file search utility (1400 kB, optional)
+#    - tree: for tree, displays directory tree, in color (36 kB, optional)
 #   Install the archive and compression packages
 #    - tar: for tar, the GNU tar archiving utility (2500 kB, optional)
 #    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (essential)
@@ -112,6 +113,8 @@ ENV TERM="${os_terminal}"
 #    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (essential)
 #   Install the crypto packages
 #    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (essential)
+#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (essential)
+#    - ca-certificates: adds trusted PEM files of CA certificates to the system (essential)
 #   Install the misc packages
 #    - nano: for nano, a tiny editor based on pico (1500 kB, optional)
 #    - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi (896 kB, optional)
@@ -138,11 +141,11 @@ RUN printf "Installing repositories and packages...\n" && \
       bash tzdata glibc-common \
       which procps \
       sed perl python \
-      grep findutils \
+      grep findutils tree \
       tar gzip \
       fping nc \
       curl \
-      gnupg \
+      gnupg openssl ca-certificates \
       nano vim-minimal && \
     \
     printf "Add symlinks for new binaries...\n" && \
