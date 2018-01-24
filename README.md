@@ -26,18 +26,20 @@ These are the services described by the dockerfile and docker-compose files:
 
 ## Images
 These are the [resulting images](https://hub.docker.com/r/stafli/stafli.system.minimal/tags) upon building:
-- Minimal 1.0.x:
+- Stable:
   - stafli/stafli.system.minimal:minimal10_debian8   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian8.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian8 "Get your own image badge on microbadger.com")
-  - stafli/stafli.system.minimal:minimal10_debian7   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian7 "Get your own image badge on microbadger.com")
   - stafli/stafli.system.minimal:minimal10_centos7   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos7 "Get your own image badge on microbadger.com")
+- Old Stable:
+  - stafli/stafli.system.minimal:minimal10_debian7   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian7 "Get your own image badge on microbadger.com")
   - stafli/stafli.system.minimal:minimal10_centos6   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos6.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos6 "Get your own image badge on microbadger.com")
 
 ## Containers
 These containers can be created from the images:
-- Minimal 1.0.x:
+- Stable:
   - stafli_system_minimal10_debian8_xxx
-  - stafli_system_minimal10_debian7_xxx
   - stafli_system_minimal10_centos7_xxx
+- Old Stable:
+  - stafli_system_minimal10_debian7_xxx
   - stafli_system_minimal10_centos6_xxx
 
 ## Usage
