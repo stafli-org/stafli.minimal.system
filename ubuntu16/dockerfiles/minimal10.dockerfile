@@ -1,6 +1,6 @@
 
 #
-#    Debian 7 (wheezy) Minimal10 System (dockerfile)
+#    Ubuntu 16.04 (xenial) Minimal10 System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
@@ -24,7 +24,7 @@
 #
 
 # Base image to use
-FROM debian:wheezy
+FROM ubuntu:xenial
 
 # Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
@@ -45,8 +45,8 @@ LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based o
       org.label-schema.registry-url="https://hub.docker.com/r/stafli/stafli.system.minimal" \
       org.label-schema.vcs-url="https://github.com/stafli-org/stafli.system.minimal" \
       org.label-schema.vcs-branch="master" \
-      org.label-schema.os-id="debian" \
-      org.label-schema.os-version-id="wheezy" \
+      org.label-schema.os-id="ubuntu" \
+      org.label-schema.os-version-id="xenial" \
       org.label-schema.os-architecture="amd64" \
       org.label-schema.version="1.0"
 
@@ -81,44 +81,43 @@ ENV TERM="${os_terminal}" \
 
 # Configure the package manager
 #  - Disable installation of optional apt packages
-#  - Enable contrib and non-free components in debian repositories
 # Refresh the package manager
 # Install the package manager packages
-#  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (1301 kB, optional)
-#  - apt-transport-https: to allow HTTPS connections to sources in apt (163 kB + 10 mB, optional) (shares dependencies with curl)
+#  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (716 kB, optional)
+#  - apt-transport-https: to allow HTTPS connections to sources in apt (208 kB + 10 mB, optional) (shares dependencies with curl)
 # Install the selected packages
 #   Install the base packages
-#    - bash: for bash, the GNU Bash shell (3941 kB, essential)
-#    - tzdata: to provide time zone and daylight-saving time data (1779 kB, essential)
-#    - locales: to provide common files for locale support (15121 kB, optional)
+#    - bash: for bash, the GNU Bash shell (1500 kB, essential)
+#    - tzdata: to provide time zone and daylight-saving time data (2790 kB, essential)
+#    - locales: to provide common files for locale support (13684 kB, optional)
 #   Install the administration packages
-#    - debianutils: for which and others, basic administration packages (223 kB, essential)
-#    - procps: for kill, top and others, basic administration packages (612 kB, optional)
+#    - debianutils: for which and others, basic administration packages (213 kB, essential)
+#    - procps: for kill, top and others, basic administration packages (676 kB, optional)
 #   Install the programming packages
-#    - sed: for sed, the GNU stream editor (847 kB, essential)
-#    - perl-base: for perl, an interpreter for the Perl Programming Language (4812 kB, essential)
-#    - python-minimal: for python, an interpreter for the Python Programming Language (161 kB + 5461 kB, optional)
+#    - sed: for sed, the GNU stream editor (304 kB, essential)
+#    - perl-base: for perl, an interpreter for the Perl Programming Language (7085 kB, essential)
+#    - python-minimal: for python, an interpreter for the Python Programming Language (145 kB + 3580 kB + 2773 kB, optional)
 #   Install the find and replace packages
-#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1407 kB, essential)
-#    - findutils: for find, the file search utility (1406 kB, essential)
-#    - tree: for tree, displays directory tree, in color (102 kB, optional)
+#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (476 kB, essential)
+#    - findutils: for find, the file search utility (560 kB, essential)
+#    - tree: for tree, displays directory tree, in color (135 kB, optional)
 #   Install the archive and compression packages
-#    - tar: for tar, the GNU tar archiving utility (2464 kB, essential)
-#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (202 kB, essential)
+#    - tar: for tar, the GNU tar archiving utility (804 kB, essential)
+#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (240 kB, essential)
 #   Install the network diagnosis packages
-#    - inetutils-ping: for ping/6, the portable GNU implementation of ping (278 kB + 65 kB, optional)
-#    - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (68 kB, optional)
+#    - inetutils-ping: for ping/6, the portable GNU implementation of ping (330 kB + 66 kB, optional)
+#    - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (109 kB, optional)
 #   Install the network transfer packages
-#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (367 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
+#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (331 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
 #   Install the crypto packages
-#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
-#    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with gnupg and curl)
-#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential) (shares dependencies with gnupg)
-#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (1110 kB, optional)
-#    - ca-certificates: adds trusted PEM files of CA certificates to the system (435 kB, optional)
+#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (1680 kB, essential)
+#    - gnupg-curl: to add support for secure HKPS keyservers (114 kB, optional) (shares dependencies with gnupg and curl)
+#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (430 kB, essential) (shares dependencies with gnupg)
+#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (934 kB, optional)
+#    - ca-certificates: adds trusted PEM files of CA certificates to the system (426 kB, optional)
 #   Install the misc packages
-#    - nano: for nano, a tiny editor based on pico (1664 kB + 364 kB, optional)
-#    - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (830 kB + 288 kB, optional)
+#    - nano: for nano, a tiny editor based on pico (684 kB + 345 kB, optional)
+#    - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (1071 kB + 368 kB, optional)
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
@@ -127,9 +126,6 @@ RUN printf "Installing repositories and packages...\n" && \
 APT::Install-Recommends "\""false"\"";\n\
 APT::Install-Suggests "\""false"\"";\n\
 \n" >> /etc/apt/apt.conf && \
-    \
-    printf "Enable contrib and non-free components in debian repositories...\n" && \
-    sed -i "s>main>main contrib non-free>" /etc/apt/sources.list && \
     \
     printf "Refresh the package manager...\n" && \
     apt-get update && \

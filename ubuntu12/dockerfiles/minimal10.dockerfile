@@ -1,6 +1,6 @@
 
 #
-#    Debian 7 (wheezy) Minimal10 System (dockerfile)
+#    Ubuntu 12.04 (precise) Minimal10 System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
@@ -24,7 +24,7 @@
 #
 
 # Base image to use
-FROM debian:wheezy
+FROM ubuntu:precise
 
 # Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
@@ -45,8 +45,8 @@ LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based o
       org.label-schema.registry-url="https://hub.docker.com/r/stafli/stafli.system.minimal" \
       org.label-schema.vcs-url="https://github.com/stafli-org/stafli.system.minimal" \
       org.label-schema.vcs-branch="master" \
-      org.label-schema.os-id="debian" \
-      org.label-schema.os-version-id="wheezy" \
+      org.label-schema.os-id="ubuntu" \
+      org.label-schema.os-version-id="precise" \
       org.label-schema.os-architecture="amd64" \
       org.label-schema.version="1.0"
 
@@ -81,7 +81,6 @@ ENV TERM="${os_terminal}" \
 
 # Configure the package manager
 #  - Disable installation of optional apt packages
-#  - Enable contrib and non-free components in debian repositories
 # Refresh the package manager
 # Install the package manager packages
 #  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (1301 kB, optional)
@@ -128,9 +127,6 @@ APT::Install-Recommends "\""false"\"";\n\
 APT::Install-Suggests "\""false"\"";\n\
 \n" >> /etc/apt/apt.conf && \
     \
-    printf "Enable contrib and non-free components in debian repositories...\n" && \
-    sed -i "s>main>main contrib non-free>" /etc/apt/sources.list && \
-    \
     printf "Refresh the package manager...\n" && \
     apt-get update && \
     \
@@ -169,8 +165,8 @@ RUN printf "Configuring accounts and internationalization...\n" && \
     echo "${os_timezone}" > /etc/timezone && \
     \
     printf "Configure locales...\n" && \
-    sed -i "s># ${os_locale}.${os_charset} ${os_charset}>${os_locale}.${os_charset} ${os_charset}>" /etc/locale.gen && \
-    locale-gen && \
+    locale-gen ${os_locale}.${os_charset} && \
+    update-locale && \
     \
     printf "Finished configuring accounts and internationalization...\n";
 ENV TZ="${os_timezone}" \
