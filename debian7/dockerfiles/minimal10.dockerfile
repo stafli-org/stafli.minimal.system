@@ -112,8 +112,8 @@ ENV TERM="${os_terminal}" \
 #    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (367 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
 #   Install the crypto packages
 #    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
-#    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with curl)
-#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential)
+#    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with gnupg and curl)
+#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential) (shares dependencies with gnupg)
 #    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (1110 kB, optional)
 #    - ca-certificates: adds trusted PEM files of CA certificates to the system (435 kB, optional)
 #   Install the misc packages

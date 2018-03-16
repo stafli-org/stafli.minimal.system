@@ -1,6 +1,6 @@
 
 #
-#    CentOS 6 (centos6) Minimal10 System (dockerfile)
+#    CentOS 5 (centos5) Minimal10 System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
@@ -24,7 +24,7 @@
 #
 
 # Base image to use
-FROM centos:centos6
+FROM centos:centos5
 
 # Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
@@ -46,7 +46,7 @@ LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based o
       org.label-schema.vcs-url="https://github.com/stafli-org/stafli.system.minimal" \
       org.label-schema.vcs-branch="master" \
       org.label-schema.os-id="centos" \
-      org.label-schema.os-version-id="6" \
+      org.label-schema.os-version-id="5" \
       org.label-schema.os-architecture="amd64" \
       org.label-schema.version="1.0"
 
@@ -82,59 +82,70 @@ ENV TERM="${os_terminal}"
 # Add foreign repositories and GPG keys
 #  - epel-release: for Extra Packages for Enterprise Linux (EPEL)
 # Install the package manager packages
-#  - yum-plugin-ovl: to provide workarounds for OverlayFS issues in yum (22 kB, optional)
-#  - yum-plugin-fastestmirror: to provide fastest mirror selection from a mirrorlist in yum (essential)
-#  - yum-plugin-priorities: to provide priorities for packages from different repos in yum (28 kB, optional)
-#  - yum-plugin-keys: to provide key signing capabilities to yum (40 kB, optional)
-#  - yum-utils: to provide additional utilities such as package-cleanup and yum-config-manager in yum (308 kB, optional)
+#  - yum-fastestmirror: to provide fastest mirror selection from a mirrorlist in yum (47 kB, essential)
+#  - yum-priorities: to provide priorities for packages from different repos in yum (16 kB, optional)
+#  - yum-keys: to provide key signing capabilities to yum (18 kB, optional)
+#  - yum-utils: to provide additional utilities such as package-cleanup and yum-config-manager in yum (194 kB, optional)
 # Install the selected packages
 #   Install the base packages
-#    - bash: for bash, the GNU Bash shell (essential)
-#    - tzdata: to provide time zone and daylight-saving time data (essential)
-#    - glibc-common: to provide common files for locale support (essential)
+#    - bash: for bash, the GNU Bash shell (5000 kB, essential)
+#    - tzdata: to provide time zone and daylight-saving time data (1700 kB, essential)
+#    - glibc-common: to provide common files for locale support (64 mB, essential)
 #   Install the administration packages
-#    - which: for which, basic administration packages (38 kB, optional)
-#    - procps: for kill, top and others, basic administration packages (464 kB, optional)
+#    - which: for which, basic administration packages (24 kB, optional)
+#    - procps: for kill, top and others, basic administration packages (403 kB, essential)
 #   Install the programming packages
-#    - sed: for sed, the GNU stream editor (essential)
-#    - perl: for perl, an interpreter for the Perl Programming Language (36 mB, optional)
-#    - python: for python, an interpreter for the Python Programming Language (essential)
+#    - sed: for sed, the GNU stream editor (327 kB, essential)
+#    - perl: for perl, an interpreter for the Perl Programming Language (12 mB, optional)
+#    - python: for python, an interpreter for the Python Programming Language (73 kB, essential)
 #   Install the find and replace packages
-#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (essential)
-#    - findutils: for find, the file search utility (1400 kB, optional)
-#    - tree: for tree, displays directory tree, in color (36 kB, optional)
+#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (433 kB, essential)
+#    - findutils: for find, the file search utility (671 kB, optional)
+#    - tree: for tree, displays directory tree, in color (27 kB, optional)
 #   Install the archive and compression packages
-#    - tar: for tar, the GNU tar archiving utility (2500 kB, optional)
-#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (essential)
+#    - tar: for tar, the GNU tar archiving utility (1600 kB, optional)
+#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (177 kB, optional)
 #   Install the network diagnosis packages
-#    - fping: for fping/6, tools to test the reachability of network hosts that requires less dependencies as (40 mB) iputils ping (31 kB, optional)
-#    - nc: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (57 kB, optional)
+#    - fping: for fping/6, tools to test the reachability of network hosts that requires less dependencies as (40 mB) iputils ping (33 kB, optional)
+#    - nc: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (56 kB, optional)
 #   Install the network transfer packages
-#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (essential)
+#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (473 kB, optional)
 #   Install the crypto packages
-#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (essential)
-#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (essential)
-#    - ca-certificates: adds trusted PEM files of CA certificates to the system (essential)
+#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4400 kB, optional)
+#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (4000 kB, essential)
 #   Install the misc packages
-#    - nano: for nano, a tiny editor based on pico (1500 kB, optional)
-#    - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi (896 kB, optional)
+#    - nano: for nano, a tiny editor based on pico (482 kB, optional)
+#    - vim-minimal: for vim editor, an almost compatible version of the UNIX editor Vi (334 kB, optional)
 # Reinstall and clean the locale archives
 # Add symlinks for new binaries
 #  - glibc-common: to provide common files for locale support
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
+    printf "Fix the baseurl and mirrorlist for all repositories...\n" && \
+    sed -i "s>mirrorlist=>#mirrorlist=>" /etc/yum.repos.d/CentOS-Base.repo && \
+    sed -i "s>mirrorlist=>#mirrorlist=>" /etc/yum.repos.d/CentOS-fasttrack.repo && \
+    sed -i "s>#baseurl=http://mirror.centos.org/centos/\$releasever>baseurl=http://vault.centos.org/5.11>" /etc/yum.repos.d/CentOS-Base.repo && \
+    sed -i "s>#baseurl=http://mirror.centos.org/centos/\$releasever>baseurl=http://vault.centos.org/5.11>" /etc/yum.repos.d/CentOS-fasttrack.repo && \
+    \
+    printf "Disable broken repositories...\n" && \
+    sed -i '/\libselinux\]/,/^ *\[/ s/enabled=1/enabled=0/' /etc/yum.repos.d/libselinux.repo && \
+    \
     printf "Refresh the package manager...\n" && \
     rpm --rebuilddb && yum makecache && \
     \
-    printf "Install the foreign repositories...\n" && \
+    printf "Install the foreign repositories and refresh the GPG keys...\n" && \
     yum install -y \
       epel-release && \
     \
     printf "Install the package manager packages...\n" && \
     yum install -y \
-      yum-plugin-ovl yum-plugin-fastestmirror yum-plugin-priorities \
-      yum-plugin-keys yum-utils && \
+      yum-fastestmirror yum-priorities \
+      yum-keys yum-utils && \
+    \
+    printf "Downgrade broken packages...\n" && \
+    yum downgrade -y \
+      libselinux && \
     \
     printf "Install the selected packages...\n" && \
     yum install -y \
@@ -145,8 +156,11 @@ RUN printf "Installing repositories and packages...\n" && \
       tar gzip \
       fping nc \
       curl \
-      gnupg openssl ca-certificates \
+      gnupg openssl \
       nano vim-minimal && \
+    \
+    #printf "Replace obsolete cacert file...\n" && \
+    #curl --verbose --insecure http://curl.haxx.se/ca/cacert.pem -o /etc/pki/tls/certs/ca-bundle.crt && \
     \
     printf "Add symlinks for new binaries...\n" && \
     ln -s /usr/sbin/fping /usr/bin/ping && \

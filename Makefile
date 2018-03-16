@@ -27,10 +27,12 @@ export $(shell sed 's/=.*//' .env)
 IMAGE_URL_PREFIX := $(shell echo $(IMAGE_URL_PREFIX))
 IMAGE_TAG_PREFIX := $(shell echo $(IMAGE_TAG_PREFIX))
 CONTAINER_URL_PREFIX := $(shell echo $(CONTAINER_URL_PREFIX))
+DISTRO_DEBIAN9_VERSION := $(shell echo $(DISTRO_DEBIAN9_VERSION))
 DISTRO_DEBIAN8_VERSION := $(shell echo $(DISTRO_DEBIAN8_VERSION))
 DISTRO_DEBIAN7_VERSION := $(shell echo $(DISTRO_DEBIAN7_VERSION))
 DISTRO_CENTOS7_VERSION := $(shell echo $(DISTRO_CENTOS7_VERSION))
 DISTRO_CENTOS6_VERSION := $(shell echo $(DISTRO_CENTOS6_VERSION))
+DISTRO_CENTOS5_VERSION := $(shell echo $(DISTRO_CENTOS5_VERSION))
 PROJECT_NAME := $(shell echo $(PROJECT_NAME))
 
 # If distro is not provided, default to all
@@ -40,7 +42,7 @@ endif
 
 # Set list of distros
 ifeq ($(DISTRO), all)
-	DISTROS:=debian8 debian7 centos7 centos6
+	DISTROS:=debian9 debian8 debian7 centos7 centos6 centos5
 else
 	DISTROS:=$(DISTRO)
 endif
@@ -91,10 +93,12 @@ Available commands:\n\
   - con-events:		Shows events of containers, using docker-compose.\n\
 \n\
 Available distributions:\n\
+- debian9\n\
 - debian8\n\
 - debian7\n\
 - centos7\n\
 - centos6\n\
+- centos5\n\
 \n\
 Example #1: quick start, with build\n\
  make up DISTRO=debian8;\n\
@@ -138,7 +142,9 @@ purge:
 	@echo Purging containers, networks, volumes and images....
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -146,6 +152,8 @@ purge:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Purging containers, networks, volumes and images for $$DISTRO_INDEX...; \
@@ -203,7 +211,9 @@ img-rm:
 	@echo Removing images...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -211,6 +221,8 @@ img-rm:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Removing images for $$DISTRO_INDEX...; \
@@ -223,7 +235,9 @@ img-inspect:
 	@echo Inspecting images...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -231,6 +245,8 @@ img-inspect:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Inspecting images for $$DISTRO_INDEX...; \
@@ -331,7 +347,9 @@ con-inspect:
 	@echo Inspecting containers...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -339,6 +357,8 @@ con-inspect:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Inspecting containers for $$DISTRO_INDEX...; \
@@ -350,7 +370,9 @@ con-ips:
 	@echo Showing IP addresses of containers...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -358,6 +380,8 @@ con-ips:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Showing IP addresses of container for $$DISTRO_INDEX...; \
@@ -370,7 +394,9 @@ con-ports:
 	@echo Showing ports of containers...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -378,6 +404,8 @@ con-ports:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Showing ports of containers for $$DISTRO_INDEX...; \
@@ -390,7 +418,9 @@ con-top:
 	@echo Showing processes of containers...
 	@echo
 	@for DISTRO_INDEX in $(DISTROS); do \
-		if [ $$DISTRO_INDEX = "debian8" ]; then \
+		if [ $$DISTRO_INDEX = "debian9" ]; then \
+			VERSION=$(DISTRO_DEBIAN9_VERSION); \
+		elif [ $$DISTRO_INDEX = "debian8" ]; then \
 			VERSION=$(DISTRO_DEBIAN8_VERSION); \
 		elif [ $$DISTRO_INDEX = "debian7" ]; then \
 			VERSION=$(DISTRO_DEBIAN7_VERSION); \
@@ -398,6 +428,8 @@ con-top:
 			VERSION=$(DISTRO_CENTOS7_VERSION); \
 		elif [ $$DISTRO_INDEX = "centos6" ]; then \
 			VERSION=$(DISTRO_CENTOS6_VERSION); \
+		elif [ $$DISTRO_INDEX = "centos5" ]; then \
+			VERSION=$(DISTRO_CENTOS5_VERSION); \
 		fi; \
 		echo; \
 		echo Showing processes of containers for $$DISTRO_INDEX...; \
