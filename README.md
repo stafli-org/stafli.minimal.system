@@ -25,6 +25,11 @@ The services use the official images as a starting point for the following distr
   - [Ubuntu 16.04 (xenial)](../../tree/master/ubuntu16)
   - [Ubuntu 14.04 (trusty)](../../tree/master/ubuntu14)
   - [Ubuntu 12.04 (precise)](../../tree/master/ubuntu12)
+- __Alpine__, from the [official repository](https://hub.docker.com/_/alpine)
+  - [Alpine 3.7 (alpine37)](../../tree/master/alpine37)
+  - [Alpine 3.6 (alpine36)](../../tree/master/alpine36)
+  - [Alpine 3.5 (alpine35)](../../tree/master/alpine35)
+  - [Alpine 3.4 (alpine34)](../../tree/master/alpine34)
 
 ## Services
 These are the services described by the dockerfile and docker-compose files:
@@ -34,16 +39,20 @@ These are the services described by the dockerfile and docker-compose files:
 These are the [resulting images](https://hub.docker.com/r/stafli/stafli.system.minimal/tags) upon building:
 - Stable:
   - stafli/stafli.system.minimal:minimal10_debian9     [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian9.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian9 "Get your own image badge on microbadger.com")
-  - stafli/stafli.system.minimal:minimal10_centos7   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos7 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_centos7      [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos7 "Get your own image badge on microbadger.com")
   - stafli/stafli.system.minimal:minimal10_ubuntu16   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_ubuntu16.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_ubuntu16 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_alpine37    [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_alpine37.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_alpine37 "Get your own image badge on microbadger.com")
 - Old Stable:
-  - stafli/stafli.system.minimal:minimal10_debian8   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian8.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian8 "Get your own image badge on microbadger.com")
-  - stafli/stafli.system.minimal:minimal10_centos6   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos6.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos6 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_debian8     [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian8.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian8 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_centos6      [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos6.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos6 "Get your own image badge on microbadger.com")
   - stafli/stafli.system.minimal:minimal10_ubuntu14   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_ubuntu14.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_ubuntu14 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_alpine36    [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_alpine36.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_alpine36 "Get your own image badge on microbadger.com")
 - Old Old Stable:
-  - stafli/stafli.system.minimal:minimal10_debian7   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian7 "Get your own image badge on microbadger.com")
-  - stafli/stafli.system.minimal:minimal10_centos5   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos5.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos5 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_debian7      [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_debian7.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_debian7 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_centos5      [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_centos5.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_centos5 "Get your own image badge on microbadger.com")
   - stafli/stafli.system.minimal:minimal10_ubuntu12   [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_ubuntu12.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_ubuntu12 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_alpine35     [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_alpine35.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_alpine35 "Get your own image badge on microbadger.com")
+  - stafli/stafli.system.minimal:minimal10_alpine34     [![](https://images.microbadger.com/badges/image/stafli/stafli.system.minimal:minimal10_alpine34.svg)](https://microbadger.com/images/stafli/stafli.system.minimal:minimal10_alpine34 "Get your own image badge on microbadger.com")
 
 ## Containers
 These containers can be created from the images:
@@ -51,14 +60,18 @@ These containers can be created from the images:
   - stafli_system_minimal10_debian9_xxx
   - stafli_system_minimal10_centos7_xxx
   - stafli_system_minimal10_ubuntu16_xxx
+  - stafli_system_minimal10_alpine37_xxx
 - Old Stable:
   - stafli_system_minimal10_debian8_xxx
   - stafli_system_minimal10_centos6_xxx
   - stafli_system_minimal10_ubuntu14_xxx
+  - stafli_system_minimal10_alpine36_xxx
 - Old Old Stable:
   - stafli_system_minimal10_debian7_xxx
   - stafli_system_minimal10_centos5_xxx
   - stafli_system_minimal10_ubuntu12_xxx
+  - stafli_system_minimal10_alpine35_xxx
+  - stafli_system_minimal10_alpine34_xxx
 
 ## Usage
 

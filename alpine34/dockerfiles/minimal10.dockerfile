@@ -1,6 +1,6 @@
 
 #
-#    Ubuntu 12.04 (precise) Minimal10 System (dockerfile)
+#    Alpine 3.4 (alpine34) Minimal10 System (dockerfile)
 #    Copyright (C) 2016-2017 Stafli
 #    Luís Pedro Algarvio
 #    This file is part of the Stafli Application Stack.
@@ -24,7 +24,7 @@
 #
 
 # Base image to use
-FROM ubuntu:precise
+FROM alpine:3.4
 
 # Labels to apply
 LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based on Upstream distributions" \
@@ -45,8 +45,8 @@ LABEL description="Stafli Minimal System (stafli/stafli.system.minimal), based o
       org.label-schema.registry-url="https://hub.docker.com/r/stafli/stafli.system.minimal" \
       org.label-schema.vcs-url="https://github.com/stafli-org/stafli.system.minimal" \
       org.label-schema.vcs-branch="master" \
-      org.label-schema.os-id="ubuntu" \
-      org.label-schema.os-version-id="precise" \
+      org.label-schema.os-id="alpine" \
+      org.label-schema.os-version-id="34" \
       org.label-schema.os-architecture="amd64" \
       org.label-schema.version="1.0"
 
@@ -64,8 +64,7 @@ ARG os_charset="UTF-8"
 #
 
 # Suppress warnings about the terminal and frontend and avoid prompts
-ENV TERM="${os_terminal}" \
-    DEBIAN_FRONTEND="noninteractive"
+ENV TERM="${os_terminal}"
 
 # Working directory to use when executing build and run instructions
 # Defaults to /.
@@ -79,75 +78,61 @@ ENV TERM="${os_terminal}" \
 # Packages
 #
 
-# Configure the package manager
-#  - Disable installation of optional apt packages
 # Refresh the package manager
 # Install the package manager packages
-#  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (1301 kB, optional)
-#  - apt-transport-https: to allow HTTPS connections to sources in apt (163 kB + 10 mB, optional) (shares dependencies with curl)
+#  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (950 kB, optional)
+#  - apt-transport-https: to allow HTTPS connections to sources in apt (190 kB + 10 mB, optional) (shares dependencies with curl)
 # Install the selected packages
 #   Install the base packages
-#    - bash: for bash, the GNU Bash shell (3941 kB, essential)
-#    - tzdata: to provide time zone and daylight-saving time data (1779 kB, essential)
-#    - locales: to provide common files for locale support (15121 kB, optional)
+#    - bash: for bash, the GNU Bash shell (5010 kB, essential)
+#    - tzdata: to provide time zone and daylight-saving time data (1712 kB, essential)
+#    - glib: to provide common files for locale support (16266 kB, optional)
 #   Install the administration packages
-#    - debianutils: for which and others, basic administration packages (223 kB, essential)
-#    - procps: for kill, top and others, basic administration packages (612 kB, optional)
+#    - which: for which and others, basic administration packages (147 kB, essential)
+#    - procps: for kill, top and others, basic administration packages (670 kB, optional)
 #   Install the programming packages
-#    - sed: for sed, the GNU stream editor (847 kB, essential)
-#    - perl-base: for perl, an interpreter for the Perl Programming Language (4812 kB, essential)
-#    - python-minimal: for python, an interpreter for the Python Programming Language (161 kB + 5461 kB, optional)
+#    - sed: for sed, the GNU stream editor (575 kB, essential)
+#    - perl: for perl, an interpreter for the Perl Programming Language (4657 kB, essential)
+#    - python: for python, an interpreter for the Python Programming Language (163 kB + 3825 kB + 2687 kB, optional)
 #   Install the find and replace packages
-#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1407 kB, essential)
+#    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1272 kB, essential)
 #    - findutils: for find, the file search utility (1406 kB, essential)
-#    - tree: for tree, displays directory tree, in color (102 kB, optional)
+#    - tree: for tree, displays directory tree, in color (112 kB, optional)
 #   Install the archive and compression packages
-#    - tar: for tar, the GNU tar archiving utility (2464 kB, essential)
-#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (202 kB, essential)
+#    - tar: for tar, the GNU tar archiving utility (2261 kB, essential)
+#    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (239KB, essential)
 #   Install the network diagnosis packages
-#    - inetutils-ping: for ping/6, the portable GNU implementation of ping (278 kB + 65 kB, optional)
+#    - iputils: for ping/6, the portable GNU implementation of ping (307 kB + 66 kB, optional)
 #    - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (68 kB, optional)
 #   Install the network transfer packages
-#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (367 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
+#    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (290 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)
 #   Install the crypto packages
-#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility (4629 kB, essential)
-#    - gnupg-curl: to add support for secure HKPS keyservers (99 kB, optional) (shares dependencies with gnupg and curl)
-#    - gpgv: for gpgv, the GNU privacy guard signature verification tool (403 kB, essential) (shares dependencies with gnupg)
-#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (1110 kB, optional)
-#    - ca-certificates: adds trusted PEM files of CA certificates to the system (435 kB, optional)
+#    - gnupg: for gnupg, the GNU privacy guard cryptographic utility, gpgv, the GNU privacy guard signature verification tool and dirmngr, the GNU privacy guard network certificate management service (4893 kB, essential)
+#    - openssl: for openssl, the OpenSSL cryptographic utility required for many packages (1119 kB, optional)
+#    - ca-certificates: adds trusted PEM files of CA certificates to the system (376 kB, optional)
 #   Install the misc packages
-#    - nano: for nano, a tiny editor based on pico (1664 kB + 364 kB, optional)
-#    - vim-tiny: for vim editor, an almost compatible version of the UNIX editor Vi (830 kB + 288 kB, optional)
+#    - nano: for nano, a tiny editor based on pico (1667 kB + 357 kB, optional)
+#    - vim: for vim editor, an almost compatible version of the UNIX editor Vi (1051 kB + 405 kB, optional)
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
-    printf "Disable installation of optional apt packages...\n" && \
-    printf "\n# Disable recommended and suggested packages\n\
-APT::Install-Recommends "\""false"\"";\n\
-APT::Install-Suggests "\""false"\"";\n\
-\n" >> /etc/apt/apt.conf && \
-    \
     printf "Refresh the package manager...\n" && \
-    apt-get update && \
-    \
-    printf "Install the package manager packages...\n" && \
-    apt-get install -qy \
-      apt-utils apt-transport-https && \
+    apk update && \
     \
     printf "Install the selected packages...\n" && \
-    apt-get install -qy \
-      bash tzdata locales \
-      debianutils procps \
-      sed perl-base python-minimal \
+    apk add -q \
+      bash tzdata glib \
+      which procps \
+      sed perl python \
       grep findutils tree \
       tar gzip \
-      inetutils-ping netcat-openbsd \
+      iputils netcat-openbsd \
       curl \
-      gnupg gnupg-curl gpgv openssl ca-certificates \
-      nano vim-tiny && \
+      gnupg openssl ca-certificates \
+      nano vim && \
     \
     printf "Cleanup the package manager...\n" && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && rm -Rf /var/cache/apt/* && \
+    rm -Rf /var/cache/apk/* && \
     \
     printf "Finished installing repositories and packages...\n";
 
@@ -158,15 +143,9 @@ APT::Install-Suggests "\""false"\"";\n\
 # Configure accounts and internationalization
 RUN printf "Configuring accounts and internationalization...\n" && \
     \
-    printf "Configure root account...\n" && \
-    cp -R /etc/skel/. /root && \
-    \
     printf "Configure timezone...\n" && \
+    cp /usr/share/zoneinfo/${os_timezone} /etc/localtime && \
     echo "${os_timezone}" > /etc/timezone && \
-    \
-    printf "Configure locales...\n" && \
-    locale-gen ${os_locale}.${os_charset} && \
-    update-locale && \
     \
     printf "Finished configuring accounts and internationalization...\n";
 ENV TZ="${os_timezone}" \

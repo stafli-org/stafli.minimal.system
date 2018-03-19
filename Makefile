@@ -36,6 +36,10 @@ DISTRO_CENTOS5_VERSION := $(shell echo $(DISTRO_CENTOS5_VERSION))
 DISTRO_UBUNTU16_VERSION := $(shell echo $(DISTRO_UBUNTU16_VERSION))
 DISTRO_UBUNTU14_VERSION := $(shell echo $(DISTRO_UBUNTU14_VERSION))
 DISTRO_UBUNTU12_VERSION := $(shell echo $(DISTRO_UBUNTU12_VERSION))
+DISTRO_ALPINE37_VERSION := $(shell echo $(DISTRO_ALPINE37_VERSION))
+DISTRO_ALPINE36_VERSION := $(shell echo $(DISTRO_ALPINE36_VERSION))
+DISTRO_ALPINE35_VERSION := $(shell echo $(DISTRO_ALPINE35_VERSION))
+DISTRO_ALPINE34_VERSION := $(shell echo $(DISTRO_ALPINE34_VERSION))
 PROJECT_NAME := $(shell echo $(PROJECT_NAME))
 
 # If distro is not provided, default to all
@@ -45,7 +49,7 @@ endif
 
 # Set list of distros
 ifeq ($(DISTRO), all)
-	DISTROS:=debian9 debian8 debian7 centos7 centos6 centos5 ubuntu16 ubuntu14 ubuntu12
+	DISTROS:=debian9 debian8 debian7 centos7 centos6 centos5 ubuntu16 ubuntu14 ubuntu12 alpine37 alpine36 alpine35 alpine34
 else
 	DISTROS:=$(DISTRO)
 endif
@@ -105,6 +109,10 @@ Available distributions:\n\
 - ubuntu16\n\
 - ubuntu14\n\
 - ubuntu12\n\
+- alpine37\n\
+- alpine36\n\
+- alpine35\n\
+- alpine34\n\
 \n\
 Example #1: quick start, with build\n\
  make up DISTRO=debian8;\n\
@@ -166,6 +174,14 @@ purge:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Purging containers, networks, volumes and images for $$DISTRO_INDEX...; \
@@ -241,6 +257,14 @@ img-rm:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Removing images for $$DISTRO_INDEX...; \
@@ -271,6 +295,14 @@ img-inspect:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Inspecting images for $$DISTRO_INDEX...; \
@@ -389,6 +421,14 @@ con-inspect:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Inspecting containers for $$DISTRO_INDEX...; \
@@ -418,6 +458,14 @@ con-ips:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Showing IP addresses of container for $$DISTRO_INDEX...; \
@@ -448,6 +496,14 @@ con-ports:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Showing ports of containers for $$DISTRO_INDEX...; \
@@ -478,6 +534,14 @@ con-top:
 			VERSION=$(DISTRO_UBUNTU14_VERSION); \
 		elif [ $$DISTRO_INDEX = "ubuntu12" ]; then \
 			VERSION=$(DISTRO_UBUNTU12_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine37" ]; then \
+			VERSION=$(DISTRO_ALPINE37_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine36" ]; then \
+			VERSION=$(DISTRO_ALPINE36_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine35" ]; then \
+			VERSION=$(DISTRO_ALPINE35_VERSION); \
+		elif [ $$DISTRO_INDEX = "alpine34" ]; then \
+			VERSION=$(DISTRO_ALPINE34_VERSION); \
 		fi; \
 		echo; \
 		echo Showing processes of containers for $$DISTRO_INDEX...; \
