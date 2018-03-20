@@ -121,7 +121,7 @@ ENV TERM="${os_terminal}" \
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
-    printf "Disable installation of optional apt packages...\n" && \
+    printf "Configure the package manager - Disable installation of optional apt packages...\n" && \
     printf "\n# Disable recommended and suggested packages\n\
 APT::Install-Recommends "\""false"\"";\n\
 APT::Install-Suggests "\""false"\"";\n\

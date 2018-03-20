@@ -96,13 +96,13 @@ ENV TERM="${os_terminal}"
 #    - python2: for python, an interpreter for the Python Programming Language (163 kB + 3825 kB + 2687 kB, optional)
 #   Install the find and replace packages
 #    - grep: for grep/egrep/fgrep, the GNU utilities to search text in files (1272 kB, essential)
-#    - findutils: for find, the file search utility (1406 kB, essential)
+#    - findutils: for find, the file search utility, and locate, which maintains and queries an index of a directory tree (1406 kB, essential)
 #    - tree: for tree, displays directory tree, in color (112 kB, optional)
 #   Install the archive and compression packages
 #    - tar: for tar, the GNU tar archiving utility (2261 kB, essential)
 #    - gzip: for gzip, the GNU compression utility which uses DEFLATE algorithm (239KB, essential)
 #   Install the network diagnosis packages
-#    - iputils: for ping/6, the portable GNU implementation of ping (307 kB + 66 kB, optional)
+#    - iputils: for ping and traceroute, an implementation of ping and tracepath (307 kB + 66 kB, optional)
 #    - netcat-openbsd: for netcat, the OpenBSD rewrite of netcat - the TCP/IP swiss army knife (68 kB, optional)
 #   Install the network transfer packages
 #    - curl: for curl, a network utility to transfer data via FTP, HTTP, SCP, and other protocols (290 kB + ... 10 mB, optional) (shares dependencies with apt-transport-https)

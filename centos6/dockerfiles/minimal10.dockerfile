@@ -79,7 +79,7 @@ ENV TERM="${os_terminal}"
 #
 
 # Refresh the package manager
-# Add foreign repositories and GPG keys
+# Install the foreign repositories and GPG keys
 #  - epel-release: for Extra Packages for Enterprise Linux (EPEL)
 # Install the package manager packages
 #  - yum-plugin-ovl: to provide workarounds for OverlayFS issues in yum (22 kB, optional)
@@ -127,7 +127,7 @@ RUN printf "Installing repositories and packages...\n" && \
     printf "Refresh the package manager...\n" && \
     rpm --rebuilddb && yum makecache && \
     \
-    printf "Install the foreign repositories...\n" && \
+    printf "Install the foreign repositories and GPG keys...\n" && \
     yum install -y \
       epel-release && \
     \

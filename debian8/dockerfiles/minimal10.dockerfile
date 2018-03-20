@@ -81,7 +81,7 @@ ENV TERM="${os_terminal}" \
 
 # Configure the package manager
 #  - Disable installation of optional apt packages
-#  - Enable contrib and non-free components in debian repositories
+#  - Enable contrib and non-free components in official repositories
 # Refresh the package manager
 # Install the package manager packages
 #  - apt-utils: for apt-extracttemplates, used by debconf to provide defaults for prompts (950 kB, optional)
@@ -122,13 +122,13 @@ ENV TERM="${os_terminal}" \
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
-    printf "Disable installation of optional apt packages...\n" && \
+    printf "Configure the package manager - Disable installation of optional apt packages...\n" && \
     printf "\n# Disable recommended and suggested packages\n\
 APT::Install-Recommends "\""false"\"";\n\
 APT::Install-Suggests "\""false"\"";\n\
 \n" >> /etc/apt/apt.conf && \
     \
-    printf "Enable contrib and non-free components in debian repositories...\n" && \
+    printf "Configure the package manager - Enable contrib and non-free components in official repositories...\n" && \
     sed -i "s>main>main contrib non-free>" /etc/apt/sources.list && \
     \
     printf "Refresh the package manager...\n" && \

@@ -78,8 +78,11 @@ ENV TERM="${os_terminal}"
 # Packages
 #
 
+# Configure the package manager
+#  - Fix the baseurl and mirrorlist for all repositories
+#  - Disable broken repositories
 # Refresh the package manager
-# Add foreign repositories and GPG keys
+# Install the foreign repositories and GPG keys
 #  - epel-release: for Extra Packages for Enterprise Linux (EPEL)
 # Install the package manager packages
 #  - yum-fastestmirror: to provide fastest mirror selection from a mirrorlist in yum (47 kB, essential)
@@ -122,19 +125,19 @@ ENV TERM="${os_terminal}"
 # Cleanup the package manager
 RUN printf "Installing repositories and packages...\n" && \
     \
-    printf "Fix the baseurl and mirrorlist for all repositories...\n" && \
+    printf "Configure the package manager - Fix the baseurl and mirrorlist for all repositories...\n" && \
     sed -i "s>mirrorlist=>#mirrorlist=>" /etc/yum.repos.d/CentOS-Base.repo && \
     sed -i "s>mirrorlist=>#mirrorlist=>" /etc/yum.repos.d/CentOS-fasttrack.repo && \
     sed -i "s>#baseurl=http://mirror.centos.org/centos/\$releasever>baseurl=http://vault.centos.org/5.11>" /etc/yum.repos.d/CentOS-Base.repo && \
     sed -i "s>#baseurl=http://mirror.centos.org/centos/\$releasever>baseurl=http://vault.centos.org/5.11>" /etc/yum.repos.d/CentOS-fasttrack.repo && \
     \
-    printf "Disable broken repositories...\n" && \
+    printf "Configure the package manager - Disable broken repositories...\n" && \
     sed -i '/\libselinux\]/,/^ *\[/ s/enabled=1/enabled=0/' /etc/yum.repos.d/libselinux.repo && \
     \
     printf "Refresh the package manager...\n" && \
     rpm --rebuilddb && yum makecache && \
     \
-    printf "Install the foreign repositories and refresh the GPG keys...\n" && \
+    printf "Install the foreign repositories and GPG keys...\n" && \
     yum install -y \
       epel-release && \
     \
